@@ -16,11 +16,16 @@ export default class TreeRoot extends Component {
 }
 
 export class TreeRow extends Component {
+  addNativeNode(node, context) {
+    console.log(arguments);
+  }
   render () {
     var elements = [
-      <span className="tree-element">{this.props.row.title}</span>
+      <span className="tree-element"
+            ref={node => this.addNativeNode(node, this.props.row)}>
+        {this.props.row.title}
+      </span>
     ];
-    var children = null;
     var children = (this.props.row.children || []).map(x => {
       return <TreeRow row={x} root={this.props.root} />
     });

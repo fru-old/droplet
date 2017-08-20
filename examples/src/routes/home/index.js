@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import Tree from '../../../../droplet-tree/react/index.js'
+import Tree from 'droplet-tree'
 
 export default class Home extends Component {
 	render() {

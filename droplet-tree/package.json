@@ -1,8 +1,8 @@
 {
-  "name": "examples",
+  "name": "droplet-tree",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "react/index.js",
   "scripts": {
     "test": "eslint src && preact test",
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
@@ -28,6 +28,8 @@
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.5",
-    "droplet-tree": "file:../droplet-tree"
+    "rbush": "^2.0.1",
+    "react-dnd-html5-backend": "^2.4.1",
+    "react-dnd-touch-backend": "^0.3.13"
   }
 }
