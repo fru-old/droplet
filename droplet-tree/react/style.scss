@@ -1,0 +1,53 @@
+@mixin clearfix-micro() {
+    & {
+        *zoom: 1;
+    }
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.tree-element {
+  margin-bottom: 8px;
+  padding: 8px;
+  display: block;
+  @include clearfix-micro();
+}
+
+.tree-root {
+  @include clearfix-micro();
+  margin: 0;
+  padding: 8px 8px 0 8px;
+  list-style-type: none;
+}
+
+.highlight {
+  position: absolute;
+}
+
+// Default theme
+
+.tree-root ul {
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.tree-element {
+  border: 1px solid #dae2ea;
+  background: #f8faff;
+  color: #7c9eb2;
+  font-size: 13px;
+  button {
+    float: right;
+    margin: -3px;
+  }
+}
+
+.highlight {
+  background-color: blue;
+}

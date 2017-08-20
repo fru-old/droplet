@@ -1,12 +1,11 @@
 import { h, Component } from 'preact';
-import style from './style';
+import Tree from '../../../../droplet-tree/react/index.js'
 
 export default class Home extends Component {
 	render() {
 		return (
-			<div class={style.home}>
-				<h1>Home</h1>
-				<p>This is the Home component.</p>
+			<div>
+				<Tree></Tree>
 			</div>
 		);
 	}
