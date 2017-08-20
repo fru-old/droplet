@@ -1,5 +1,5 @@
 {
-  "name": "droplet-tree",
+  "name": "examples",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,10 +17,14 @@
     "extends": "eslint-config-synacor"
   },
   "devDependencies": {
+    "bourbon": "^4.3.4",
+    "bourbon-neat": "^1.9.0",
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",
     "if-env": "^1.0.0",
-    "preact-cli": "^1.4.1"
+    "node-sass": "^4.5.3",
+    "preact-cli": "^1.4.1",
+    "sass-loader": "^6.0.6"
   },
   "dependencies": {
     "preact": "^8.2.1",
