@@ -1,5 +1,5 @@
 {
-  "name": "examples",
+  "name": "droplet-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,7 +20,6 @@
     "eslint": "^4.5.0",
     "eslint-config-synacor": "^1.1.0",
     "if-env": "^1.0.0",
-    "module-alias": "^2.0.1",
     "node-sass": "^4.5.3",
     "preact-cli": "^1.4.1",
     "sass-loader": "^6.0.6"
@@ -28,6 +27,9 @@
   "dependencies": {
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
-    "preact-router": "^2.5.5"
+    "preact-router": "^2.5.5",
+    "rbush": "^2.0.1",
+    "react-dnd-html5-backend": "^2.4.1",
+    "react-dnd-touch-backend": "^0.3.13"
   }
 }

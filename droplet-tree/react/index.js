@@ -10,25 +10,28 @@ export default class TreeRoot extends Component {
   ];
 
 	render() {
-    var rows = this.tree.map(x => <TreeRow row={x} root={this} />);
-		return <ul className="tree-root">{rows}</ul>;
+		return <ul className="tree-root">{rows(this.tree, this)}</ul>;
 	}
 }
 
-export class TreeRow extends Component {
+function rows(rows, root) {
+  return rows.map(x => <TreeRow row={x} root={root} />);
+}
+
+function TreeRow({row, root}) {
+  let children = rows(row.children || [], root);
+  let elements = [<TreeElement context={row} root={root} />];
+  return <li>{elements}<ul>{children}</ul></li>;
+};
+
+export class TreeElement extends Component {
   addNativeNode(node, context) {
     console.log(arguments);
   }
   render () {
-    var elements = [
-      <span className="tree-element"
-            ref={node => this.addNativeNode(node, this.props.row)}>
-        {this.props.row.title}
-      </span>
-    ];
-    var children = (this.props.row.children || []).map(x => {
-      return <TreeRow row={x} root={this.props.root} />
-    });
-    return <li>{elements}<ul>{children}</ul></li>;
+    return <span className="tree-element"
+          ref={node => this.addNativeNode(node, this.props.context)}>
+      {this.props.context.title} Test
+    </span>;
   }
 }
