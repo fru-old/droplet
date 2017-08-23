@@ -27,6 +27,8 @@ class BuildTargetAreas extends AbstractReverseIterator {
 
   buildTargetAreas (node, path, selected, options) {
     // Generated with buildTargets from options.getBoundBox(node);
+
+    // TODO Get bounding box
     return [];
   }
 }

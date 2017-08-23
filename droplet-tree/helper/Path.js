@@ -1,8 +1,5 @@
 import assert from 'assert';
 
-// options:
-// - levelWidth
-
 class Path {
   constructor(hierarchy, positionInRow) {
     assert(hierarchy && hierarchy.length);
@@ -19,6 +16,7 @@ class Path {
   }
 
   private getAncestorRow(level) {
+    assert(level >= 0);
     if (level === 0) return null;
     return new Path(this.hierarchy.slice(0, level));
   }
