@@ -4,6 +4,7 @@ import rbush from 'rbush';
 
 export class BackendFacade {
 
+  elements = {};
   registries = {};
   engine = rbush();
   constructor() {
@@ -54,12 +55,14 @@ export class BackendFacade {
 
   connectSource(id, registry, source, preview) {
     this.registries[id] = registry;
+    this.elements[id] = source;
     let undoSource = this.backend.connectDragSource(id, source);
     let undoPreview = this.backend.connectDragPreview(id, preview);
     return () => {
       undoSource();
       undoPreview();
       delete this.registries[id];
+      delete this.elements[id];
     }
   }
 
@@ -69,6 +72,10 @@ export class BackendFacade {
 
   isDragging() {
     return !!this.sourceId.length;
+  }
+
+  getElement(id) {
+    return this.elements[id];
   }
 
   _buildBackend() {

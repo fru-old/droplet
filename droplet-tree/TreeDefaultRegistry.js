@@ -1,16 +1,18 @@
-import { AbstractRegistry }  from 'droplet-core';
+import { AbstractRegistry } from 'droplet-core';
+import { BuildTargetAreas } from './iterator/BuildTargetAreas';
 
 export class TreeDefaultRegistry extends AbstractRegistry {
 
   constructor(tree, options) {
     super();
+    this.tree = tree;
     this.options = options;
   }
 
   // Build targets
 
   getTargets(sourceId) {
-    return [{original: null, x: 0, y: 0, width: 5000, height: 5000}];
+    return new BuildTargetAreas().start(this.tree, this.options);
   }
 
   hover(matches, begin, current) {

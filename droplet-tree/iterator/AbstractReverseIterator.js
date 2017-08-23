@@ -1,6 +1,8 @@
-class AbstractReverseIterator {
+import { Path } from '../helper/Path';
 
-  private iterateReverse(rows, parentPath, options) {
+export class AbstractReverseIterator {
+
+  iterateReverse(rows, parentPath, options) {
     if (!rows) return;
     for(let i = rows.length - 1; i >= 0; i--) {
       let row = rows[i];

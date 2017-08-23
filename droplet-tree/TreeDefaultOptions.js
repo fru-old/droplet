@@ -1,3 +1,5 @@
+import { BackendFacade } from 'droplet-core';
+
 export function TreeDefaultOptions(overwrites) {
   this.selected = {};
   this.idProperty = overwrites.idProperty || 'id';
@@ -12,6 +14,7 @@ export function TreeDefaultOptions(overwrites) {
   if (overwrites.getContent) this.getContent = overwrites.getContent;
   if (overwrites.getMultiList) this.getMultiList = overwrites.getMultiList;
   if (overwrites.getChildList) this.getChildList = overwrites.getChildList;
+  if (overwrites.getBoundingBox) this.getBoundingBox = overwrites.getBoundingBox;
 }
 
 TreeDefaultOptions.prototype = {
@@ -29,5 +32,9 @@ TreeDefaultOptions.prototype = {
   },
   getId: function (node) {
     return node[this.idProperty];
+  },
+  getBoundingBox: function (node) {
+    let element =  BackendFacade.singleton().getElement(this.getId(node));
+    return element.getBoundingClientRect();
   }
 };

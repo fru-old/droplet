@@ -1,4 +1,6 @@
-class BuildTargetAreas extends AbstractReverseIterator {
+import { AbstractReverseIterator } from './AbstractReverseIterator';
+
+export class BuildTargetAreas extends AbstractReverseIterator {
 
   targets = [];
   start(tree, options) {
@@ -27,8 +29,8 @@ class BuildTargetAreas extends AbstractReverseIterator {
 
   buildTargetAreas (node, path, selected, options) {
     // Generated with buildTargets from options.getBoundBox(node);
-
+    console.log(options.getBoundingBox(node));
     // TODO Get bounding box
-    return [];
+    return [options.getBoundingBox(node)];
   }
 }
