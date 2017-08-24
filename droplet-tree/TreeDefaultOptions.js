@@ -35,6 +35,10 @@ TreeDefaultOptions.prototype = {
   },
   getBoundingBox: function (node) {
     let element =  BackendFacade.singleton().getElement(this.getId(node));
-    return element.getBoundingClientRect();
+    let rect = element.getBoundingClientRect();
+    return {x: rect.left, y: rect.top, width: rect.width, height: rect.height};
+  },
+  getLeftSpacing: function(node, path) {
+    return path.getLevel() * this.levelWidth;
   }
 };

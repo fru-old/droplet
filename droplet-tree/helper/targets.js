@@ -18,7 +18,7 @@ export function buildTargets({x, y, width, height}, options, extraLeft) {
   let b = { x, width, height: height - half, y: y + half };
 
   return {
-    top:    extra(t, options, extraLeft), left:  expand(l, options),
-    bottom: extra(b, options, extraLeft), right: expand(r, options)
+    top:    extra(t, options, extraLeft), left:  extra(l, options),
+    bottom: extra(b, options, extraLeft), right: extra(r, options)
   };
 }

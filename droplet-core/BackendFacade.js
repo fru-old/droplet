@@ -30,6 +30,7 @@ export class BackendFacade {
 
   _resetState() {
     if (this.undoSelection) this.undoSelection();
+    this.undoSelection = null;
     this.sourceId = null;
     this.beginCoordinate = null;
     this.lastCoordinate  = null;

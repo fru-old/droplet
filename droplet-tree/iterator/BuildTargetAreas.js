@@ -1,4 +1,5 @@
 import { AbstractReverseIterator } from './AbstractReverseIterator';
+import { buildTargets } from '../helper/targets.js'
 
 export class BuildTargetAreas extends AbstractReverseIterator {
 
@@ -29,7 +30,12 @@ export class BuildTargetAreas extends AbstractReverseIterator {
 
   buildTargetAreas (node, path, selected, options) {
     // Generated with buildTargets from options.getBoundBox(node);
-    console.log(options.getBoundingBox(node));
+    var box = options.getBoundingBox(node);
+    var leftSpacing = options.getLeftSpacing(node, path);
+    var sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
+
+    console.log(path);
+    console.log(sections);
     // TODO Get bounding box
     return [options.getBoundingBox(node)];
   }

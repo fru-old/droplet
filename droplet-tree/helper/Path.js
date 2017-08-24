@@ -9,7 +9,8 @@ export class Path {
     this.id = hierarchy.join('-') + '_' + positionInRow;
   }
 
-  getLevel() { return this.hierarchy.length; }
+  isFirstInRow() { return this.positionInRow === 0; }
+  getLevel() { return this.hierarchy.length - 1; }
   getIndex() { return this.hierarchy[this.hierarchy.length - 1]; }
   getParentRow() {
     return this.getAncestorRow(this.getLevel() - 1);
