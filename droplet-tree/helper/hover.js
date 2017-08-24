@@ -1,4 +1,4 @@
-function getHoverInfo(hoverPath, beforePath, afterPath, offset, options) {
+export function getHoverInfo(hoverPath, beforePath, afterPath, offset, options) {
   if (!hoverPath || !beforePath) return { level: 0 };
 
   // Does the positon of 'after' affect the possible hover range?

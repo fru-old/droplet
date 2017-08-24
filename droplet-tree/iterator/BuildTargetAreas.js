@@ -1,5 +1,6 @@
 import { AbstractReverseIterator } from './AbstractReverseIterator';
-import { buildTargets } from '../helper/targets.js'
+import { buildTargets } from '../helper/targets';
+import { getHoverInfo } from '../helper/hover';
 
 export class BuildTargetAreas extends AbstractReverseIterator {
 
@@ -28,15 +29,20 @@ export class BuildTargetAreas extends AbstractReverseIterator {
     this.targets = this.targets.concat(targets);
   }
 
-  buildTargetAreas (node, path, selected, options) {
-    // Generated with buildTargets from options.getBoundBox(node);
+  buildTargetAreas(node, path, selected, options) {
     var box = options.getBoundingBox(node);
     var leftSpacing = options.getLeftSpacing(node, path);
     var sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
+    section.top.preview = () => showTopPreview('top',  )
 
-    console.log(path);
-    console.log(sections);
-    // TODO Get bounding box
-    return [options.getBoundingBox(node)];
+    return [sections.top, secontions.bottom];
+  }
+
+  getPreview(path, box, section, direction, offset, options) {
+    let before = section.beforePath;
+    let after  = section.afterPath;
+    let info = getHoverInfo(path, before, after, offset, options);
+    
+    return {level: info.level - path.getLevel(), box, direction};
   }
 }

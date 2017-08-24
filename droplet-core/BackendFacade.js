@@ -43,7 +43,7 @@ export class BackendFacade {
       return this.engine.search(coordinate).map(x => x.original);
   }
 
-  _getRectangleFromTarget({original, x, y, width, height}) {
+  _getRectangleFromTarget({x, y, width, height, ...original}) {
     return {original, minX: x, maxX: x + width, minY: y, maxY: y + height}
   }
 
