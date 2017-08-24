@@ -33,16 +33,17 @@ export class BuildTargetAreas extends AbstractReverseIterator {
     var box = options.getBoundingBox(node);
     var leftSpacing = options.getLeftSpacing(node, path);
     var sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
-    section.top.preview = () => showTopPreview('top',  )
 
-    return [sections.top, secontions.bottom];
-  }
+    function preview(direction, offset) {
+      let before = this.beforePath;
+      let after  = this.afterPath;
+      let info = getHoverInfo(path, before, after, offset, options);
 
-  getPreview(path, box, section, direction, offset, options) {
-    let before = section.beforePath;
-    let after  = section.afterPath;
-    let info = getHoverInfo(path, before, after, offset, options);
-    
-    return {level: info.level - path.getLevel(), box, direction};
+      return {levelDifference: info.level - path.getLevel(), box, direction, selected};
+    }
+
+    sections.top.preview = preview.bind(sections.top, 0);
+    sections.bottom.preview = preview.bind(sections.bottom, 2);
+    return [sections.top, sections.bottom];
   }
 }

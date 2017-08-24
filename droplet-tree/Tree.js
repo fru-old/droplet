@@ -11,14 +11,16 @@ export class Tree extends Component {
     super();
     let {id, tree, options, registry} = props;
     this.options  = new TreeDefaultOptions(options || {});
-    this.registry = registry || new TreeDefaultRegistry(tree, this.options);
+    this.registry = registry || new TreeDefaultRegistry(this, tree, this.options);
     this.ref = (e) => this.registry.connectRoot(id || 'droplet-tree-root', e);
   }
 
   render() {
-    return <ul className="tree-root" ref={this.ref}>
+    let {x, y, width, height} = this.state.preview || {};
+    let preview = { top: y, left: x, width, height };
+    return <div><ul className="tree-root" ref={this.ref}>
       {rows(this.props.tree, this)}
-    </ul>;
+    </ul><div className="highlight" style={preview}></div></div>;
   }
 }
 

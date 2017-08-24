@@ -1,4 +1,5 @@
 import { BackendFacade } from 'droplet-core';
+import { getPreview } from './helper/preview';
 
 export function TreeDefaultOptions(overwrites) {
   this.selected = {};
@@ -15,6 +16,7 @@ export function TreeDefaultOptions(overwrites) {
   if (overwrites.getMultiList) this.getMultiList = overwrites.getMultiList;
   if (overwrites.getChildList) this.getChildList = overwrites.getChildList;
   if (overwrites.getBoundingBox) this.getBoundingBox = overwrites.getBoundingBox;
+  if (overwrites.getPreview) this.getPreview = overwrites.getPreview;
 }
 
 TreeDefaultOptions.prototype = {
@@ -40,5 +42,8 @@ TreeDefaultOptions.prototype = {
   },
   getLeftSpacing: function(node, path) {
     return path.getLevel() * this.levelWidth;
+  },
+  getPreview: function(info) {
+    return getPreview(info, this);
   }
 };

@@ -5,7 +5,7 @@ export function getHoverInfo(hoverPath, beforePath, afterPath, offset, options) 
   let isAfterRestrictive = afterPath && afterPath.getLevel() > 0;
 
   let maxLevel  = beforePath.getLevel() + 1;
-  let minLevel  = 0:
+  let minLevel  = 0;
   if (isAfterRestrictive) minLevel = afterPath.getLevel() - 1;
 
   let indicated = hoverPath.getIndicatedLevel(offset, options);
