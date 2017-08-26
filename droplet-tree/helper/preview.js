@@ -1,11 +1,11 @@
-export function getPreview({levelDifference, box, direction, selected}, options) {
+export function getPreview({levelDifference, bounds, direction, center}, options) {
   let space = options.extraSpacing;
-  let {x, y, width, height} = box;
+  let {x, y, width, height} = bounds;
 
   if (direction === 0 || direction === 2) {
     x += levelDifference * options.levelWidth;
 
-    if (selected) {
+    if (center) {
       return { x, width, height: space, y: y + height / 2 - space / 2 };
     } else if (direction === 0) {
       return { x, width, height: space, y: y - space };

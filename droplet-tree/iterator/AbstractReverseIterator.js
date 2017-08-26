@@ -16,14 +16,14 @@ export class AbstractReverseIterator {
         this.iterateReverse(children, rowPath, options);
       }
 
-      if (this.enterRow) this.enterRow(row, rowPath, selected);
+      if (this.enterRow) this.enterRow({row, path: rowPath, selected});
       for(let j = nodes.length - 1; j >= 0; j--) {
         let node = nodes[j];
         let path = Path.getChild(parentPath, i, j);
 
-        this.visitNode(node, path, options.isSelected(node), options);
+        this.visitNode(node, row, path, options.isSelected(node), options);
       }
-      if (this.exitRow) this.exitRow(row, rowPath, selected);
+      if (this.exitRow) this.exitRow({row, path: rowPath, selected});
     }
   }
 }

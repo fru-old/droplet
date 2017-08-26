@@ -8,7 +8,7 @@ class TransformTree extends ReverseIterator {
     this.iterateReverse(tree, null, options);
   }
 
-  visitNode(node, path, selected, options) {
+  visitNode(node, row, path, selected, options) {
 
   }
 

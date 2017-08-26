@@ -4,6 +4,7 @@ export function getHoverInfo(hoverPath, beforePath, afterPath, offset, options) 
   // Does the positon of 'after' affect the possible hover range?
   let isAfterRestrictive = afterPath && afterPath.getLevel() > 0;
 
+  console.log(beforePath.getLevel());
   let maxLevel  = beforePath.getLevel() + 1;
   let minLevel  = 0;
   if (isAfterRestrictive) minLevel = afterPath.getLevel() - 1;

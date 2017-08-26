@@ -16,6 +16,7 @@ export function TreeDefaultOptions(overwrites) {
   if (overwrites.getMultiList) this.getMultiList = overwrites.getMultiList;
   if (overwrites.getChildList) this.getChildList = overwrites.getChildList;
   if (overwrites.getBoundingBox) this.getBoundingBox = overwrites.getBoundingBox;
+  if (overwrites.getRowBoundingBox) this.getRowBoundingBox = overwrites.getRowBoundingBox;
   if (overwrites.getPreview) this.getPreview = overwrites.getPreview;
 }
 
@@ -39,6 +40,14 @@ TreeDefaultOptions.prototype = {
     let element =  BackendFacade.singleton().getElement(this.getId(node));
     let rect = element.getBoundingClientRect();
     return {x: rect.left, y: rect.top, width: rect.width, height: rect.height};
+  },
+  getRowBoundingBox: function (row) {
+    var boxes = this.getMultiList(row).map(n => this.getBoundingBox(n));
+    var x = Math.max(...boxes.map(b => b.x));
+    var y = Math.max(...boxes.map(b => b.y));
+    var width  = Math.max(...boxes.map(b => b.x + b.width))  - x;
+    var height = Math.max(...boxes.map(b => b.y + b.height)) - y;
+    return {x, y, width, height};
   },
   getLeftSpacing: function(node, path) {
     return path.getLevel() * this.levelWidth;
