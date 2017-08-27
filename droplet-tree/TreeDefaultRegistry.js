@@ -1,5 +1,6 @@
 import { AbstractRegistry } from 'droplet-core';
 import { BuildTargetAreas } from './iterator/BuildTargetAreas';
+import { TransformTree } from './iterator/TreeTransformer';
 
 export class TreeDefaultRegistry extends AbstractRegistry {
 
@@ -9,8 +10,6 @@ export class TreeDefaultRegistry extends AbstractRegistry {
     this.options = options;
     this.root = root;
   }
-
-  // Build targets
 
   getTargets(sourceId) {
     return new BuildTargetAreas().start(this.tree, this.options);
@@ -24,7 +23,8 @@ export class TreeDefaultRegistry extends AbstractRegistry {
 
   drop(matches, begin, current) {
     if (!matches.length) return;
-    console.log('drop');
+    let transformation = {};
+    new TransformTree().transform(this.tree, this.options, transformation);
   }
 
   setSelected(sourceId) {

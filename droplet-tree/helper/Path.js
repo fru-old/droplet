@@ -12,6 +12,7 @@ export class Path {
   isFirstInRow() { return this.positionInRow === 0; }
   getLevel() { return this.hierarchy.length - 1; }
   getIndex() { return this.hierarchy[this.hierarchy.length - 1]; }
+  getNodeIndex() { return this.positionInRow; }
   getParentRow() {
     return this.getAncestorRow(this.getLevel() - 1);
   }

@@ -18,6 +18,7 @@ export function TreeDefaultOptions(overwrites) {
   if (overwrites.getBoundingBox) this.getBoundingBox = overwrites.getBoundingBox;
   if (overwrites.getRowBoundingBox) this.getRowBoundingBox = overwrites.getRowBoundingBox;
   if (overwrites.getPreview) this.getPreview = overwrites.getPreview;
+  if (overwrites.removeNode) this.removeNode = overwrites.removeNode;
 }
 
 TreeDefaultOptions.prototype = {
@@ -54,5 +55,12 @@ TreeDefaultOptions.prototype = {
   },
   getPreview: function(info) {
     return getPreview(info, this);
+  },
+  removeNode: function(parent, multi, rowIndex, nodeIndex) {
+    if (multi.length === 1) {
+      delete parent[rowIndex];
+    } else {
+      delete multi[nodeIndex];
+    }
   }
 };
