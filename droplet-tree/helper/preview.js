@@ -4,6 +4,7 @@ export function getPreview({levelDifference, bounds, direction, center}, options
 
   if (direction === 0 || direction === 2) {
     x += levelDifference * options.levelWidth;
+    width -= levelDifference * options.levelWidth;
 
     if (center) {
       return { x, width, height: space, y: y + height / 2 - space / 2 };
@@ -13,7 +14,4 @@ export function getPreview({levelDifference, bounds, direction, center}, options
       return { x, width, height: space, y: y + height };
     }
   }
-
-
-
 }

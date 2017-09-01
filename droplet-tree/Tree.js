@@ -16,11 +16,14 @@ export class Tree extends Component {
   }
 
   render() {
-    let {x, y, width, height} = this.state.preview || {};
-    let preview = { top: y, left: x, width, height };
+    let preview, {x, y, width, height} = this.state.preview || {};
+    let highlight = { top: y, left: x, width, height };
+    if (this.state.preview) {
+      preview = <div className="highlight" style={highlight}></div>;
+    }
     return <div><ul className="tree-root" ref={this.ref}>
       {rows(this.props.tree, this)}
-    </ul><div className="highlight" style={preview}></div></div>;
+    </ul>{preview}</div>;
   }
 }
 

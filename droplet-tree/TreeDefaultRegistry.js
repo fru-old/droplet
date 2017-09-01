@@ -22,6 +22,7 @@ export class TreeDefaultRegistry extends AbstractRegistry {
   }
 
   drop(matches, begin, current) {
+    this.root.setState({preview: null});
     if (!matches.length) return;
     let transformation = {};
     new TransformTree().transform(this.tree, this.options, transformation);

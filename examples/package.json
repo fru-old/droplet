@@ -32,6 +32,8 @@
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.5",
+    "react": "^15.6.1",
+    "react-router": "^4.2.0",
     "sass-loader": "^6.0.6"
   }
 }

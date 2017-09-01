@@ -4,7 +4,7 @@ import { Router } from 'preact-router';
 import Home from '../routes/home';
 
 export default class App extends Component {
-	
+
 	handleRoute = e => {
 		this.currentUrl = e.url;
 	};
