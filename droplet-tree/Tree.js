@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { Component } from 'react';
 import { TreeDefaultRegistry } from './TreeDefaultRegistry';
 import { TreeDefaultOptions } from './TreeDefaultOptions';
 import style from './style.scss';

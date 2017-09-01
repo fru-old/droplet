@@ -21,7 +21,7 @@ export class AbstractReverseIterator {
         let node = nodes[j];
         let path = Path.getChild(parentPath, i, j);
 
-        this.visitNode(node, row, path, options.isSelected(node), options);
+        this.visitNode(node, row, path, options.isSelected(node), options, rows);
       }
       if (this.exitRow) this.exitRow({row, path: rowPath, selected, rows});
     }

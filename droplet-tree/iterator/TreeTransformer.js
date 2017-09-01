@@ -10,17 +10,15 @@ export class TransformTree extends AbstractReverseIterator {
     this.iterateReverse(tree, null, options);
   }
 
-  visitNode(node, row, path, selected, options) {
+  visitNode(node, row, path, selected, options, rows) {
     if (selected) {
       let multi = options.getMultiList(row);
 
       let rowIndex  = path.getIndex();
       let nodeIndex = path.getNodeIndex();
-      options.removeNode(this.rows, multi, rowIndex, nodeIndex);
+      options.removeNode(rows, multi, rowIndex, nodeIndex);
     }
   }
-
-  enterRow({rows}) { this.rows = rows; }
 
   insertAtIndex(path, index) {
 

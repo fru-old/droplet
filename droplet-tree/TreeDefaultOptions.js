@@ -57,6 +57,7 @@ TreeDefaultOptions.prototype = {
     return getPreview(info, this);
   },
   removeNode: function(parent, multi, rowIndex, nodeIndex) {
+    console.log(arguments);
     if (multi.length === 1) {
       delete parent[rowIndex];
     } else {

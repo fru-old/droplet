@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { Component } from 'react';
 import { Tree } from 'droplet-tree'
 
 export default class Home extends Component {

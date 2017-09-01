@@ -1,5 +1,5 @@
-import { h, Component } from 'preact';
-import { Router } from 'preact-router';
+import { Component } from 'react';
+import { Router } from 'react-router';
 
 import Home from '../routes/home';
 
