@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { TreeDefaultRegistry } from './TreeDefaultRegistry';
 import { TreeDefaultOptions } from './TreeDefaultOptions';
 import style from './style.scss';
@@ -8,7 +8,8 @@ let rows = (rows, root) => rows.map(x => <TreeRow row={x} root={root} />);
 export class Tree extends Component {
 
   constructor(props) {
-    super();
+    super(props);
+    this.state = {};
     let {id, tree, options, registry} = props;
     this.options  = new TreeDefaultOptions(options || {});
     this.registry = registry || new TreeDefaultRegistry(this, tree, this.options);
