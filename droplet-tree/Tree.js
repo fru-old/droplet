@@ -13,8 +13,8 @@ export class Tree extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    let {id, tree, options, registry} = props;
-    this.options  = new TreeDefaultOptions(options || {});
+    let {id, tree, registry} = props;
+    this.options  = new TreeDefaultOptions(props);
     this.registry = registry || new TreeDefaultRegistry(this, tree, this.options);
     this.ref = (e) => this.registry.connectRoot(id || 'droplet-tree-root', e);
   }
@@ -25,7 +25,7 @@ export class Tree extends Component {
     if (this.state.preview) {
       preview = <div className="highlight" style={highlight}></div>;
     }
-    return <div><ul className="tree-root" ref={this.ref}>
+    return <div ref={this.ref}><ul className="tree-root">
       {rows(this.props.tree, this)}
     </ul>{preview}</div>;
   }

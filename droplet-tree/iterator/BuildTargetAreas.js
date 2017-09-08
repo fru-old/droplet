@@ -23,23 +23,24 @@ export class BuildTargetAreas extends AbstractReverseIterator {
     let box = options.getBoundingBox(node);
     let leftSpacing = options.getLeftSpacing(node, path);
     let sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
-
+    let rowBounds = this.bounds;
+    
     function preview(direction, offset) {
 
       let prevNotSelected = this.prevNotSelected && this.prevNotSelected.path;
       let nextNotSelected = this.nextNotSelected && this.nextNotSelected.path;
       if (direction === 0 && !selected) nextNotSelected = path;
       if (direction === 2 && !selected) prevNotSelected = path;
-      
+
       let info = getHoverInfo(path, prevNotSelected, nextNotSelected, offset, options);
       let levelDifference = info.level - path.getLevel();
 
       let centerPrev = direction === 0 && this.prev && this.prev.selected;
       let centerNext = direction === 2 && this.next && this.next.selected;
 
-      let bounds = options.getRowBoundingBox(row);
-      if (centerPrev) bounds = options.getRowBoundingBox(this.prev.row);
-      if (centerNext) bounds = options.getRowBoundingBox(this.next.row);
+      let bounds = rowBounds;
+      if (centerPrev) bounds = this.prev.bounds;
+      if (centerNext) bounds = this.next.bounds;
       let center = selected || centerPrev || centerNext;
 
       return {levelDifference, bounds, direction, center};
@@ -65,7 +66,9 @@ export class BuildTargetAreas extends AbstractReverseIterator {
 
   // New rows is assigned as prev and possibly prevNotSelected
 
-  enterRow(item) {
+  enterRow(item, options) {
+    this.bounds = options.getRowBoundingBox(item.row);
+    item.bounds = this.bounds;
     this.set(this.incomplete.prev, x => x.prev = item);
     if (item.selected) return;
     this.set(this.incomplete.prevNotSelected, x => x.prevNotSelected = item);
@@ -74,6 +77,7 @@ export class BuildTargetAreas extends AbstractReverseIterator {
   // On every exit we can assign the history and then make this row history
 
   exitRow(item) {
+    item.bounds = this.bounds;
     this.set(this.incomplete.currentRow, x => {
       x.next = this.history.next;
       x.nextNotSelected = this.history.nextNotSelected;

@@ -4,10 +4,11 @@ import { AbstractReverseIterator } from './AbstractReverseIterator';
 export class TransformTree extends AbstractReverseIterator {
 
   transform(tree, options, transformation) {
-    this.tree = tree;
+    this.tree = options.getEditableCopy(tree);
     this.options = options;
     this.transformation = transformation;
-    this.iterateReverse(tree, null, options);
+    this.iterateReverse(this.tree, null, options);
+    if (options.onChange) options.onChange(this.tree);
   }
 
   visitNode(node, row, path, selected, options, rows) {
@@ -16,6 +17,7 @@ export class TransformTree extends AbstractReverseIterator {
 
       let rowIndex  = path.getIndex();
       let nodeIndex = path.getNodeIndex();
+      //console.log(path, rows, multi, rowIndex, nodeIndex);
       options.removeNode(rows, multi, rowIndex, nodeIndex);
     }
   }

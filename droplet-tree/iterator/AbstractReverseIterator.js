@@ -16,7 +16,7 @@ export class AbstractReverseIterator {
         this.iterateReverse(children, rowPath, options);
       }
 
-      if (this.enterRow) this.enterRow({row, path: rowPath, selected, rows});
+      if (this.enterRow) this.enterRow({row, path: rowPath, selected, rows}, options);
       for(let j = nodes.length - 1; j >= 0; j--) {
         let node = nodes[j];
         let path = Path.getChild(parentPath, i, j);

@@ -1,27 +1,29 @@
 import { BackendFacade } from 'droplet-core';
 import { getPreview } from './helper/preview';
 
-export function TreeDefaultOptions(overwrites) {
-  this.selected = {};
-  this.idProperty = overwrites.idProperty || 'id';
-  this.titleProperty = overwrites.titleProperty || 'title';
-  this.multiProperty = overwrites.multiProperty || 'multi';
-  this.childProperty = overwrites.childProperty || 'children';
-  this.levelWidth = overwrites.levelWidth || 20;
-  this.extraSpacing = overwrites.extraSpacing || 8;
+export function TreeDefaultOptions(props) {
+  let options = props.options || {};
 
-  if (overwrites.getId) this.getId = overwrites.getId;
-  if (overwrites.isSelected) this.isSelected = overwrites.isSelected;
-  if (overwrites.getContent) this.getContent = overwrites.getContent;
-  if (overwrites.getMultiList) this.getMultiList = overwrites.getMultiList;
-  if (overwrites.getChildList) this.getChildList = overwrites.getChildList;
-  if (overwrites.getBoundingBox) this.getBoundingBox = overwrites.getBoundingBox;
-  if (overwrites.getRowBoundingBox) this.getRowBoundingBox = overwrites.getRowBoundingBox;
-  if (overwrites.getPreview) this.getPreview = overwrites.getPreview;
-  if (overwrites.removeNode) this.removeNode = overwrites.removeNode;
+  for (var key in TreeDefaultOptions.defaults) {
+    if (props[key] !== undefined) {
+      this[key] = props[key];
+    } else if (options[key] !== undefined) {
+      this[key] = options[key];
+    } else {
+      this[key] = TreeDefaultOptions.defaults[key];
+    }
+  }
+  this.onChange = props.onChange || options.onChange;
 }
 
-TreeDefaultOptions.prototype = {
+TreeDefaultOptions.defaults = {
+  selected: [],
+  idProperty: 'id',
+  titleProperty: 'title',
+  multiProperty: 'multi',
+  childProperty: 'children',
+  levelWidth: 20,
+  extraSpacing: 8,
   getMultiList: function (row) {
     return row[this.multiProperty] || [row];
   },
@@ -41,7 +43,9 @@ TreeDefaultOptions.prototype = {
     return node[this.idProperty];
   },
   getBoundingBox: function (node) {
+    console.log(this.getId(node));
     let element =  BackendFacade.singleton().getElement(this.getId(node));
+    console.log(element);
     let rect = element.getBoundingClientRect();
     return {x: rect.left, y: rect.top, width: rect.width, height: rect.height};
   },
@@ -59,8 +63,10 @@ TreeDefaultOptions.prototype = {
   getPreview: function(info) {
     return getPreview(info, this);
   },
+  getEditableCopy: function(original) {
+    return JSON.parse(JSON.stringify(original));
+  },
   removeNode: function(parent, multi, rowIndex, nodeIndex) {
-    console.log(arguments);
     if (multi.length === 1) {
       delete parent[rowIndex];
     } else {
