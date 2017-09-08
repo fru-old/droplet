@@ -10,7 +10,7 @@ export function getHoverInfo(hoverPath, beforePath, afterPath, offset, options) 
 
   let indicated = hoverPath.getIndicatedLevel(offset, options);
   let level = Math.max(Math.min(indicated, maxLevel), minLevel);
-
+  
   return {
     level,
     isFirstChildOfBefore: level === maxLevel,

@@ -28,6 +28,9 @@ export class BuildTargetAreas extends AbstractReverseIterator {
 
       let prevNotSelected = this.prevNotSelected && this.prevNotSelected.path;
       let nextNotSelected = this.nextNotSelected && this.nextNotSelected.path;
+      if (direction === 0 && !selected) nextNotSelected = path;
+      if (direction === 2 && !selected) prevNotSelected = path;
+      
       let info = getHoverInfo(path, prevNotSelected, nextNotSelected, offset, options);
       let levelDifference = info.level - path.getLevel();
 
