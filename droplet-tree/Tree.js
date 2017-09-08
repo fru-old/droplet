@@ -58,11 +58,12 @@ export class TreeRow extends Component {
 
     let multi = root.options.getMultiList(row);
     let children = rows(root.options.getChildList(row), root);
+    let ul = children.length ? <ul>{children}</ul> : null;
     let elements = multi.map(n =>
       <TreeElement node={n} root={root} key={root.options.getId(n)} />);
 
     let ref = this.updateDomReference.bind(this, multi, root);
-    return <li ref={ref}>{elements}<ul>{children}</ul></li>;
+    return <li ref={ref}>{elements}{ul}</li>;
   }
 }
 

@@ -49,9 +49,7 @@ TreeDefaultOptions.defaults = {
     return node[this.idProperty];
   },
   getBoundingBox: function (node) {
-    console.log(this.getId(node));
     let element =  BackendFacade.singleton().getElement(this.getId(node));
-    console.log(element);
     let rect = element.getBoundingClientRect();
     return {x: rect.left, y: rect.top, width: rect.width, height: rect.height};
   },

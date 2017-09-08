@@ -24,7 +24,7 @@ export class BuildTargetAreas extends AbstractReverseIterator {
     let leftSpacing = options.getLeftSpacing(node, path);
     let sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
     let rowBounds = this.bounds;
-    
+
     function preview(direction, offset) {
 
       let prevNotSelected = this.prevNotSelected && this.prevNotSelected.path;
@@ -48,7 +48,9 @@ export class BuildTargetAreas extends AbstractReverseIterator {
 
     sections.top.preview = preview.bind(sections.top, 0);
     sections.bottom.preview = preview.bind(sections.bottom, 2);
-    return [sections.top, sections.bottom];
+    let targets = [sections.top, sections.bottom];
+    targets.forEach(x => x.level = path.getLevel());
+    return targets;
   }
 
   // State of the iterator

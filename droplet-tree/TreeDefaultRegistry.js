@@ -22,6 +22,14 @@ export class TreeDefaultRegistry extends AbstractRegistry {
   hover(matches, begin, current) {
     let preview = null;
     if (matches.length) {
+      // TODO There needs to be a hidden suggested level that starts at the first
+      // target level
+      // TODO Any movement is added to hidden suggested level
+      // TODO At any position a movement of the level width in a single direction
+      // should result in a change in the suggested level
+      // TODO When a direction change is detected the hidden suggested level is
+      // reduced by all additional levels of the previous continues motion that
+      // didnt make a change
       let hover = matches[0].preview(current.x - begin.x);
       preview = this.options.getPreview(hover);
     }
