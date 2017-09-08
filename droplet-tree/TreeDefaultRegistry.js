@@ -20,9 +20,12 @@ export class TreeDefaultRegistry extends AbstractRegistry {
   }
 
   hover(matches, begin, current) {
-    if (!matches.length) return;
-    let hover = matches[0].preview(current.x - begin.x);
-    this.root.setState({preview: this.options.getPreview(hover)});
+    let preview = null;
+    if (matches.length) {
+      let hover = matches[0].preview(current.x - begin.x);
+      preview = this.options.getPreview(hover);
+    }
+    this.root.setState({preview});
   }
 
   drop(matches, begin, current) {

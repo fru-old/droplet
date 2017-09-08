@@ -17,7 +17,6 @@ export class TransformTree extends AbstractReverseIterator {
 
       let rowIndex  = path.getIndex();
       let nodeIndex = path.getNodeIndex();
-      //console.log(path, rows, multi, rowIndex, nodeIndex);
       options.removeNode(rows, multi, rowIndex, nodeIndex);
     }
   }

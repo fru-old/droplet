@@ -19,11 +19,11 @@ export class Tree extends Component {
     this.registry = registry || new TreeDefaultRegistry(this, tree, this.options);
     this.ref = (e) => this.registry.connectRoot(id || 'droplet-tree-root', e);
   }
-  
+
   componentDidUpdate(props) {
+    this.options.setProps(this.props);
     if (this.props.tree === props.tree) return;
-    this.options.setProps(props);
-    this.registry.setTree(props.tree);
+    this.registry.setTree(this.props.tree);
   }
 
   render() {

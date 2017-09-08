@@ -74,9 +74,9 @@ TreeDefaultOptions.defaults = {
   },
   removeNode: function(parent, multi, rowIndex, nodeIndex) {
     if (multi.length === 1) {
-      delete parent[rowIndex];
+      parent.splice(rowIndex, 1);
     } else {
-      delete multi[nodeIndex];
+      multi.splice(nodeIndex, 1);
     }
   }
 };
