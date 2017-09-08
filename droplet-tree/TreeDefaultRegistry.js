@@ -6,9 +6,13 @@ export class TreeDefaultRegistry extends AbstractRegistry {
 
   constructor(root, tree, options) {
     super();
-    this.tree = tree;
     this.options = options;
+    this.tree = tree;
     this.root = root;
+  }
+
+  setTree(tree) {
+    this.tree = tree;
   }
 
   getTargets(sourceId) {
@@ -29,7 +33,7 @@ export class TreeDefaultRegistry extends AbstractRegistry {
   }
 
   setSelected(sourceId) {
-    this.options.selected[sourceId] = true;
-    return () => delete this.options.selected[sourceId];
+    this.options.onSelectChange(sourceId, true);
+    return () => this.options.onSelectChange(sourceId, false);
   }
 }

@@ -12,11 +12,18 @@ export class Tree extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
     let {id, tree, registry} = props;
+
+    this.state = {};
     this.options  = new TreeDefaultOptions(props);
     this.registry = registry || new TreeDefaultRegistry(this, tree, this.options);
     this.ref = (e) => this.registry.connectRoot(id || 'droplet-tree-root', e);
+  }
+  
+  componentDidUpdate(props) {
+    if (this.props.tree === props.tree) return;
+    this.options.setProps(props);
+    this.registry.setTree(props.tree);
   }
 
   render() {

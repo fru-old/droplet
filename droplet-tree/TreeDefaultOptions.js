@@ -2,22 +2,24 @@ import { BackendFacade } from 'droplet-core';
 import { getPreview } from './helper/preview';
 
 export function TreeDefaultOptions(props) {
-  let options = props.options || {};
-
-  for (var key in TreeDefaultOptions.defaults) {
-    if (props[key] !== undefined) {
-      this[key] = props[key];
-    } else if (options[key] !== undefined) {
-      this[key] = options[key];
-    } else {
-      this[key] = TreeDefaultOptions.defaults[key];
-    }
-  }
-  this.onChange = props.onChange || options.onChange;
+  this.selected = [];
+  this.setProps(props);
 }
 
+TreeDefaultOptions.prototype.setProps = function (props) {
+  this.applyOptions(TreeDefaultOptions.defaults);
+  this.applyOptions(props.options || {});
+  this.applyOptions(props); // Highest prio - Overrides all previous
+};
+
+TreeDefaultOptions.prototype.applyOptions = function (values) {
+  for (var key in values) {
+    if (values[key] === undefined) continue;
+    this[key] = values[key];
+  }
+};
+
 TreeDefaultOptions.defaults = {
-  selected: [],
   idProperty: 'id',
   titleProperty: 'title',
   multiProperty: 'multi',
@@ -29,6 +31,10 @@ TreeDefaultOptions.defaults = {
   },
   getChildList: function (row) {
     return row[this.childProperty] || [];
+  },
+  onSelectChange: function (id, selected) {
+    if (selected) this.selected[id] = true;
+    else delete this.selected[id];
   },
   isSelected: function (node) {
     return !!this.selected[this.getId(node)];
