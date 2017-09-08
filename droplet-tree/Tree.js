@@ -3,7 +3,10 @@ import { TreeDefaultRegistry } from './TreeDefaultRegistry';
 import { TreeDefaultOptions } from './TreeDefaultOptions';
 import style from './style.scss';
 
-let rows = (rows, root) => rows.map(x => <TreeRow row={x} root={root} />);
+let rows = (rows, root) => {
+  let options = root.options;
+  return rows.map(x => <TreeRow row={x} root={root} key={options.getRowId(x)} />);
+}
 
 export class Tree extends Component {
 
@@ -48,7 +51,8 @@ export class TreeRow extends Component {
 
     let multi = root.options.getMultiList(row);
     let children = rows(root.options.getChildList(row), root);
-    let elements = multi.map(n => <TreeElement node={n} root={root} />);
+    let elements = multi.map(n =>
+      <TreeElement node={n} root={root} key={root.options.getId(n)} />);
 
     let ref = this.updateDomReference.bind(this, multi, root);
     return <li ref={ref}>{elements}<ul>{children}</ul></li>;

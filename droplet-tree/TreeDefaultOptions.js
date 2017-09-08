@@ -34,6 +34,9 @@ TreeDefaultOptions.prototype = {
   getContent: function (node) {
     return node[this.titleProperty];
   },
+  getRowId: function (row) {
+    return this.getMultiList(row).map(x => this.getId(x)).join('-');
+  },
   getId: function (node) {
     return node[this.idProperty];
   },
