@@ -20,15 +20,7 @@ export class TransformTree extends AbstractReverseIterator {
       options.removeNode(rows, multi, rowIndex, nodeIndex);
     }
   }
-
-  insertAtIndex(path, index) {
-
-  }
-
-  insertIntoRow(path, index) {
-
-  }
-
+  
   moveChildren(path, index) {
 
   }

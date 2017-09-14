@@ -25,14 +25,17 @@ export class BuildTargetAreas extends AbstractReverseIterator {
     let sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
     let rowBounds = this.bounds;
 
-    function preview(direction, offset) {
-
+    function info(direction, offset) {
       let prevNotSelected = this.prevNotSelected && this.prevNotSelected.path;
       let nextNotSelected = this.nextNotSelected && this.nextNotSelected.path;
       if (direction === 0 && !selected) nextNotSelected = path;
       if (direction === 2 && !selected) prevNotSelected = path;
 
-      let info = getHoverInfo(path, prevNotSelected, nextNotSelected, offset, options);
+      return getHoverInfo(path, prevNotSelected, nextNotSelected, offset, options);
+    }
+
+    function preview(direction, offset) {
+      let info = this.info(offset);
       let levelDifference = info.level - path.getLevel();
 
       let centerPrev = direction === 0 && this.prev && this.prev.selected;
@@ -46,8 +49,12 @@ export class BuildTargetAreas extends AbstractReverseIterator {
       return {levelDifference, bounds, direction, center};
     }
 
+    sections.top.info = info.bind(sections.top, 0);
+    sections.bottom.info = info.bind(sections.bottom, 2);
+
     sections.top.preview = preview.bind(sections.top, 0);
     sections.bottom.preview = preview.bind(sections.bottom, 2);
+
     let targets = [sections.top, sections.bottom];
     targets.forEach(x => x.level = path.getLevel());
     return targets;

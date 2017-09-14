@@ -7,7 +7,7 @@ export function TreeDefaultOptions(props) {
 }
 
 TreeDefaultOptions.prototype.setProps = function (props) {
-  this.applyOptions(TreeDefaultOptions.defaults);
+  this.applyOptions(TreeDefaultOptions.prototype.defaults);
   this.applyOptions(props.options || {});
   this.applyOptions(props); // Highest prio - Overrides all previous
 };
@@ -19,7 +19,7 @@ TreeDefaultOptions.prototype.applyOptions = function (values) {
   }
 };
 
-TreeDefaultOptions.defaults = {
+TreeDefaultOptions.prototype.defaults = {
   idProperty: 'id',
   titleProperty: 'title',
   multiProperty: 'multi',
@@ -70,11 +70,18 @@ TreeDefaultOptions.defaults = {
   getEditableCopy: function(original) {
     return JSON.parse(JSON.stringify(original));
   },
-  removeNode: function(parent, multi, rowIndex, nodeIndex) {
+  removeNode: function(rows, multi, rowIndex, nodeIndex) {
     if (multi.length === 1) {
-      parent.splice(rowIndex, 1);
+      rows.splice(rowIndex, 1);
     } else {
       multi.splice(nodeIndex, 1);
+    }
+  },
+  insertNode(rows, multi, rowIndex, nodeIndex, node) {
+    if (nodeIndex === null) { // a new row is being created
+      rows.splice(rowIndex, 0, node);
+    } else {
+      multi.splice(nodeIndex, 0, node);
     }
   }
 };
