@@ -40,9 +40,7 @@ export class TreeDefaultRegistry extends AbstractRegistry {
     this.root.setState({preview: null});
     if (!matches.length) return;
     let info = matches[0].info(current.x - begin.x);
-    console.log(info);
-    let transformation = {};
-    new TransformTree().transform(this.tree, this.options, transformation);
+    new TransformTree().transform(this.tree, this.options, info);
   }
 
   setSelected(sourceId) {

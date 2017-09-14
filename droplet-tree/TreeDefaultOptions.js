@@ -70,18 +70,16 @@ TreeDefaultOptions.prototype.defaults = {
   getEditableCopy: function(original) {
     return JSON.parse(JSON.stringify(original));
   },
-  removeNode: function(rows, multi, rowIndex, nodeIndex) {
-    if (multi.length === 1) {
-      rows.splice(rowIndex, 1);
-    } else {
-      multi.splice(nodeIndex, 1);
-    }
+  removeNode: function(multi, nodeIndex) {
+    return multi.splice(nodeIndex, 1)[0];
   },
-  insertNode(rows, multi, rowIndex, nodeIndex, node) {
-    if (nodeIndex === null) { // a new row is being created
-      rows.splice(rowIndex, 0, node);
-    } else {
-      multi.splice(nodeIndex, 0, node);
-    }
+  removeRow: function(rows, rowIndex) {
+    return rows.splice(rowIndex, 1)[0];
+  },
+  insertNode(multi, nodeIndex, node) {
+    multi.splice(nodeIndex, 0, node);
+  },
+  insertRow(rows, rowIndex, row) {
+    rows.splice(rowIndex, 0, row);
   }
 };

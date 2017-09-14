@@ -11,25 +11,25 @@ export class BuildTargetAreas extends AbstractReverseIterator {
   set(array, call) { array.forEach(call); array.length = 0; }
   add(array, targets) { array.push.apply(array, targets); }
 
-  visitNode(node, row, path, selected, options) {
-    let targets = this.buildTargetAreas(node, row, path, selected, options);
+  visitNode(node, row, path, selected, options, rows) {
+    let targets = this.buildTargetAreas(node, row, path, selected, options, rows);
     this.add(this.results, targets);
     this.add(this.incomplete.prev, targets);
     this.add(this.incomplete.prevNotSelected, targets);
     this.add(this.incomplete.currentRow, targets);
   }
 
-  buildTargetAreas(node, row, path, selected, options) {
+  buildTargetAreas(node, row, path, selected, options, rows) {
     let box = options.getBoundingBox(node);
     let leftSpacing = options.getLeftSpacing(node, path);
     let sections = buildTargets(box, options, path.isFirstInRow() ? leftSpacing : 0);
     let rowBounds = this.bounds;
 
     function info(direction, offset) {
-      let prevNotSelected = this.prevNotSelected && this.prevNotSelected.path;
-      let nextNotSelected = this.nextNotSelected && this.nextNotSelected.path;
-      if (direction === 0 && !selected) nextNotSelected = path;
-      if (direction === 2 && !selected) prevNotSelected = path;
+      let prevNotSelected = this.prevNotSelected;
+      let nextNotSelected = this.nextNotSelected;
+      if (direction === 0 && !selected) nextNotSelected = {rows, path};
+      if (direction === 2 && !selected) prevNotSelected = {rows, path};
 
       return getHoverInfo(path, prevNotSelected, nextNotSelected, offset, options);
     }

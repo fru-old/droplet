@@ -3,24 +3,38 @@ import { AbstractReverseIterator } from './AbstractReverseIterator';
 
 export class TransformTree extends AbstractReverseIterator {
 
-  transform(tree, options, transformation) {
+  detached = [];
+
+  transform(tree, options, info) {
     this.tree = options.getEditableCopy(tree);
     this.options = options;
-    this.transformation = transformation;
+    this.info = info;
     this.iterateReverse(this.tree, null, options);
     if (options.onChange) options.onChange(this.tree);
   }
 
-  visitNode(node, row, path, selected, options, rows) {
-    if (selected) {
-      let multi = options.getMultiList(row);
+  enterRow(item, options) {
+    let rows = item.rows;
+    let rowIndex = item.path.getIndex();
 
-      let rowIndex  = path.getIndex();
-      let nodeIndex = path.getNodeIndex();
-      options.removeNode(rows, multi, rowIndex, nodeIndex);
+    if (item.selected) {
+      this.detached.push(options.removeRow(rows, rowIndex));
     }
   }
-  
+
+  visitNode(node, row, path, selected, options, rows) {
+    let multi = options.getMultiList(row);
+    let nodeIndex = path.getNodeIndex();
+
+    if (selected) {
+      this.detached.push(options.removeNode(multi, nodeIndex));
+    }
+  }
+
+  skipNodes({selected}) {
+    return selected;
+  }
+
   moveChildren(path, index) {
 
   }
