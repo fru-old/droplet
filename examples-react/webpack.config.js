@@ -1,6 +1,7 @@
 var path = require('path');
 var path = require('path');
 var webpack = require('webpack');
+// node_modules/.bin/webpack-dev-server --hot
 
 module.exports = {
   devtool: 'eval',

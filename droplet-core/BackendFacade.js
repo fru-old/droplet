@@ -72,7 +72,7 @@ export class BackendFacade {
   }
 
   isDragging() {
-    return !!this.sourceId.length;
+    return !!(this.sourceId && this.sourceId.length);
   }
 
   getElement(id) {

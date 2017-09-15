@@ -6,9 +6,11 @@ export class Path {
     assert(positionInRow === undefined || positionInRow >= 0)
     this.hierarchy = hierarchy;
     this.positionInRow = positionInRow;
-    this.id = hierarchy.join('-') + '_' + positionInRow;
+    this.id = this._getId(positionInRow);
   }
 
+  _getId(positionInRow) { return this.hierarchy.join('-') + '_' + positionInRow; }
+  getRowId() { return this._getId(); }
   isFirstInRow() { return this.positionInRow === 0; }
   getLevel() { return this.hierarchy.length - 1; }
   getIndex() { return this.hierarchy[this.hierarchy.length - 1]; }

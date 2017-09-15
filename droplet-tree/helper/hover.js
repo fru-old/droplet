@@ -1,7 +1,5 @@
-export function getHoverInfo(hoverPath, before, after, offset, options) {
-  let afterPath = after && after.path;
-  let beforePath = before && before.path;
-  if (!hoverPath || !beforePath) return { level: 0 };
+export function getHoverInfo(hoverPath, beforePath, afterPath, offset, options) {
+  if (!hoverPath || !beforePath) return { level: 0, beforePath, afterPath };
 
   // Does the positon of 'after' affect the possible hover range?
   let isAfterRestrictive = afterPath && afterPath.getLevel() > 0;
@@ -15,8 +13,8 @@ export function getHoverInfo(hoverPath, before, after, offset, options) {
 
   return {
     level,
-    before,
-    after,
+    beforePath,
+    afterPath,
     isFirstChildOfBefore: level === maxLevel,
     isDirectParentOfAfter: level === minLevel && isAfterRestrictive
   };

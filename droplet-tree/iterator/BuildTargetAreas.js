@@ -26,10 +26,10 @@ export class BuildTargetAreas extends AbstractReverseIterator {
     let rowBounds = this.bounds;
 
     function info(direction, offset) {
-      let prevNotSelected = this.prevNotSelected;
-      let nextNotSelected = this.nextNotSelected;
-      if (direction === 0 && !selected) nextNotSelected = {rows, path};
-      if (direction === 2 && !selected) prevNotSelected = {rows, path};
+      let prevNotSelected = this.prevNotSelected && this.prevNotSelected.path;
+      let nextNotSelected = this.nextNotSelected && this.nextNotSelected.path;
+      if (direction === 0 && !selected) nextNotSelected = path;
+      if (direction === 2 && !selected) prevNotSelected = path;
 
       return getHoverInfo(path, prevNotSelected, nextNotSelected, offset, options);
     }

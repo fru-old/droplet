@@ -29,7 +29,8 @@ TreeDefaultOptions.prototype.defaults = {
   getMultiList: function (row) {
     return row[this.multiProperty] || [row];
   },
-  getChildList: function (row) {
+  getChildList: function (row, create) {
+    if (create && !row[this.childProperty]) row[this.childProperty] = [];
     return row[this.childProperty] || [];
   },
   onSelectChange: function (id, selected) {
