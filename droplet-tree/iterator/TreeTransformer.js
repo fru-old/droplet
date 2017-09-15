@@ -9,13 +9,11 @@ export class TransformTree extends AbstractReverseIterator {
     this.tree = options.getEditableCopy(tree);
     this.options = options;
     this.info = info;
-    console.log(info);
     this.iterateReverse(this.tree, null, options);
 
     if (this.rows) {
-      console.log(this.rows);
       for(let i = this.detached.length - 1; i >= 0; i--) {
-        this.options.insertRow(this.rows, 0, this.detached[i]);
+        this.options.insertRow(this.rows, this.index, this.detached[i]);
       }
     }
 
@@ -30,9 +28,15 @@ export class TransformTree extends AbstractReverseIterator {
       this.detached.push(options.removeRow(rows, rowIndex));
     }
 
+    let parent = this.info.beforePath && this.info.beforePath.getAncestorRow(this.info.level + 1);
     let isBeforeOfDrop = this.info.beforePath && item.path.id === this.info.beforePath.getRowId();
+
     if (isBeforeOfDrop && this.info.isFirstChildOfBefore) {
-      this.rows = this.options.getChildList(item.row, true);
+      this.rows  = this.options.getChildList(item.row, true);
+      this.index = 0;
+    } else if (item.path.id === (parent && parent.getRowId())) {
+      this.rows  = item.rows;
+      this.index = item.path.getIndex() + 1;
     }
   }
 
