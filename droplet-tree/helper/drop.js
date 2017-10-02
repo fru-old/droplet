@@ -1,4 +1,4 @@
-function drop(hoverInfo, hoverPath, beforePath, afterPath) {
+/*function drop(hoverInfo, hoverPath, beforePath, afterPath) {
   if (hoverInfo.isFirstChildOfBefore) {
     insertAtIndex(beforePath, 0);
 
@@ -12,4 +12,4 @@ function drop(hoverInfo, hoverPath, beforePath, afterPath) {
     let parent = beforePath.getAncestorRow(hoverInfo.level);
     insertAtIndex(parent.getParentRow(), parent.getIndex());
   }
-}
+}*/
